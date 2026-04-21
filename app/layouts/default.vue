@@ -30,6 +30,11 @@ async function logout() {
               active-class="text-blue-600 font-medium eva:text-eva-lime">
               Vendors
             </NuxtLink>
+            <NuxtLink v-if="(user as any)?.role === 'admin'" to="/users"
+              class="text-sm text-gray-600 hover:text-gray-900 eva:text-eva-muted eva:hover:text-white"
+              active-class="text-blue-600 font-medium eva:text-eva-lime">
+              Users
+            </NuxtLink>
           </div>
           <div class="flex items-center gap-4">
             <button @click="toggle"

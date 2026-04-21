@@ -12,6 +12,7 @@ export async function seedAdminIfEmpty() {
     username: 'admin',
     passwordHash: hash,
     displayName: 'Administrator',
+    role: 'admin',
   }).run()
 
   console.log('[seed] Created default admin user: admin / admin — change the password after first login!')

@@ -15,6 +15,13 @@
       "when": 1776778203792,
       "tag": "0001_green_iceman",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1776783441387,
+      "tag": "0002_bouncy_annihilus",
+      "breakpoints": true
     }
   ]
 }
