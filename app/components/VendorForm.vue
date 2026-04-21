@@ -16,6 +16,7 @@ const form = reactive({
 })
 
 const imageUploading = ref(false)
+const faviconLoading = ref(false)
 const imageError = ref('')
 const imageInput = ref<HTMLInputElement | null>(null)
 const imagePath = ref(props.initial?.imagePath ?? null)
@@ -35,6 +36,20 @@ async function uploadImage() {
   } finally {
     imageUploading.value = false
     if (imageInput.value) imageInput.value.value = ''
+  }
+}
+
+async function fetchFavicon() {
+  if (!props.initial?.id) return
+  faviconLoading.value = true
+  imageError.value = ''
+  try {
+    const res = await $fetch<{ filename: string }>(`/api/vendors/${props.initial.id}/fetch-favicon`, { method: 'POST' })
+    imagePath.value = res.filename
+  } catch (e: any) {
+    imageError.value = e?.data?.statusMessage || 'Could not fetch favicon'
+  } finally {
+    faviconLoading.value = false
   }
 }
 
@@ -59,13 +74,19 @@ const label = 'block text-sm font-medium text-gray-700 eva:text-eva-muted mb-1'
             No image
           </div>
           <div class="flex-1">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 flex-wrap">
               <input ref="imageInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif"
                 class="text-sm text-gray-600 eva:text-eva-muted" />
               <button type="button" @click="uploadImage" :disabled="imageUploading"
                 class="bg-gray-100 hover:bg-gray-200 text-gray-700 rounded px-3 py-1.5 text-sm disabled:opacity-50
                        eva:bg-eva-raised eva:hover:bg-eva-border eva:text-eva-muted">
                 {{ imageUploading ? 'Uploading…' : 'Upload' }}
+              </button>
+              <button v-if="form.website" type="button" @click="fetchFavicon" :disabled="faviconLoading"
+                class="bg-blue-50 hover:bg-blue-100 text-blue-700 rounded px-3 py-1.5 text-sm disabled:opacity-50
+                       eva:bg-eva-raised eva:hover:bg-eva-border eva:text-eva-lime"
+                title="Fetch favicon from vendor website">
+                {{ faviconLoading ? 'Fetching…' : '🌐 Fetch Favicon' }}
               </button>
             </div>
             <p v-if="imageError" class="text-sm text-red-600 eva:text-red-400 mt-1">{{ imageError }}</p>
