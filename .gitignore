@@ -24,5 +24,7 @@ logs
 !.env.example
 
 # App data
-data/data.db
+data/*.db
+data/*.db-wal
+data/*.db-shm
 data/uploads/
