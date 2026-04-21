@@ -12,7 +12,8 @@ function onChange(e: Event) {
 
 <template>
   <select :value="modelValue ?? ''" @change="onChange"
-    class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+    class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500
+           eva:bg-eva-raised eva:border-eva-border eva:text-white eva:focus:ring-eva-lime">
     <option value="">— No vendor —</option>
     <option v-for="v in vendors" :key="v.id" :value="v.id">{{ v.name }}</option>
   </select>

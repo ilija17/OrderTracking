@@ -31,14 +31,14 @@ async function handleDelete() {
 <template>
   <div class="max-w-2xl">
     <div class="flex items-center gap-4 mb-6">
-      <NuxtLink to="/vendors" class="text-sm text-gray-500 hover:text-gray-900">← Back</NuxtLink>
-      <h1 class="text-2xl font-semibold text-gray-900">{{ vendor?.name ?? 'Vendor' }}</h1>
+      <NuxtLink to="/vendors" class="text-sm text-gray-500 hover:text-gray-900 eva:text-eva-muted eva:hover:text-white">← Back</NuxtLink>
+      <h1 class="text-2xl font-semibold text-gray-900 eva:text-white">{{ vendor?.name ?? 'Vendor' }}</h1>
     </div>
-    <div class="bg-white rounded-lg border border-gray-200 p-6">
+    <div class="bg-white rounded-lg border border-gray-200 p-6 eva:bg-eva-surface eva:border-eva-border">
       <VendorForm v-if="vendor" :initial="vendor" :loading="loading" :error="error" @submit="handleSubmit">
         <template #actions>
           <button type="button" @click="handleDelete"
-            class="text-red-600 hover:text-red-800 text-sm font-medium px-4 py-2">
+            class="text-red-600 hover:text-red-800 eva:text-red-400 eva:hover:text-red-300 text-sm font-medium px-4 py-2">
             Delete
           </button>
         </template>
