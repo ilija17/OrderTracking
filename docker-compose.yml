@@ -8,5 +8,4 @@ services:
       - ./persist/data:/app/data
     environment:
       - NUXT_SESSION_PASSWORD=change-this-to-a-random-32-char-secret
-      - NUXT_SESSION_COOKIE_SECURE=false
     restart: unless-stopped

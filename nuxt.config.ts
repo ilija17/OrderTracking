@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     session: {
       password: process.env.NUXT_SESSION_PASSWORD || 'change-this-secret-at-least-32-chars-long',
+      cookie: {
+        secure: false,
+      },
     },
   },
 })
