@@ -16,15 +16,20 @@ export const vendors = sqliteTable('vendors', {
   phone: text('phone'),
   email: text('email'),
   website: text('website'),
+  imagePath: text('image_path'),
   notes: text('notes'),
   createdAt: text('created_at').notNull().default(sql`(datetime('now'))`),
 })
 
 export const orders = sqliteTable('orders', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  item: text('item').notNull(),
+  title: text('title').notNull(),
+  // Deprecated: kept for migration safety. Use orderItems instead.
+  item: text('item'),
   vendorId: integer('vendor_id').references(() => vendors.id, { onDelete: 'set null' }),
-  quantity: integer('quantity').notNull().default(1),
+  // Deprecated: kept for migration safety. Use orderItems instead.
+  quantity: integer('quantity'),
+  // Deprecated: kept for migration safety. Use orderItems instead.
   unitPriceCents: integer('unit_price_cents'),
   orderNumber: text('order_number'),
   trackingNumber: text('tracking_number'),
@@ -37,4 +42,12 @@ export const orders = sqliteTable('orders', {
   createdBy: integer('created_by').notNull().references(() => users.id),
   createdAt: text('created_at').notNull().default(sql`(datetime('now'))`),
   updatedAt: text('updated_at').notNull().default(sql`(datetime('now'))`),
+})
+
+export const orderItems = sqliteTable('order_items', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  orderId: integer('order_id').notNull().references(() => orders.id, { onDelete: 'cascade' }),
+  name: text('name').notNull(),
+  quantity: integer('quantity').notNull().default(1),
+  unitPriceCents: integer('unit_price_cents'),
 })

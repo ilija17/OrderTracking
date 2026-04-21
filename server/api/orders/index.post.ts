@@ -1,12 +1,17 @@
 import { z } from 'zod'
 import { db } from '../../db'
-import { orders } from '../../db/schema'
+import { orders, orderItems } from '../../db/schema'
 
-const schema = z.object({
-  item: z.string().min(1),
-  vendorId: z.number().int().nullable().optional(),
+const itemSchema = z.object({
+  name: z.string().min(1),
   quantity: z.number().int().min(1).default(1),
   unitPriceCents: z.number().int().nullable().optional(),
+})
+
+const schema = z.object({
+  title: z.string().min(1),
+  vendorId: z.number().int().nullable().optional(),
+  items: z.array(itemSchema).min(1),
   orderNumber: z.string().nullable().optional(),
   trackingNumber: z.string().nullable().optional(),
   orderDate: z.string().min(1),
@@ -27,20 +32,32 @@ export default defineEventHandler(async (event) => {
   }
 
   const data = parsed.data
-  const result = db.insert(orders).values({
-    item: data.item,
-    vendorId: data.vendorId ?? null,
-    quantity: data.quantity,
-    unitPriceCents: data.unitPriceCents ?? null,
-    orderNumber: data.orderNumber || null,
-    trackingNumber: data.trackingNumber || null,
-    orderDate: data.orderDate,
-    expectedDate: data.expectedDate ?? null,
-    receivedDate: data.receivedDate ?? null,
-    status: data.status,
-    notes: data.notes || null,
-    createdBy: (session.user as any).id,
-  }).returning().get()
+
+  const result = db.transaction((tx) => {
+    const order = tx.insert(orders).values({
+      title: data.title,
+      vendorId: data.vendorId ?? null,
+      orderNumber: data.orderNumber || null,
+      trackingNumber: data.trackingNumber || null,
+      orderDate: data.orderDate,
+      expectedDate: data.expectedDate ?? null,
+      receivedDate: data.receivedDate ?? null,
+      status: data.status,
+      notes: data.notes || null,
+      createdBy: (session.user as any).id,
+    }).returning().get()
+
+    const items = data.items.map((item) =>
+      tx.insert(orderItems).values({
+        orderId: order.id,
+        name: item.name,
+        quantity: item.quantity,
+        unitPriceCents: item.unitPriceCents ?? null,
+      }).returning().get()
+    )
+
+    return { ...order, items }
+  })
 
   return result
 })

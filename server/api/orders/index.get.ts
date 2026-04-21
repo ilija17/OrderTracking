@@ -1,6 +1,6 @@
 import { db } from '../../db'
-import { orders, vendors, users } from '../../db/schema'
-import { desc, eq, and, gte, lte, inArray } from 'drizzle-orm'
+import { orders, orderItems, vendors, users } from '../../db/schema'
+import { desc, eq, and, gte, lte, inArray, sql } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
@@ -23,8 +23,10 @@ export default defineEventHandler(async (event) => {
   const rows = db
     .select({
       order: orders,
-      vendor: vendors,
-      creator: { displayName: users.displayName },
+      vendorName: vendors.name,
+      creatorName: users.displayName,
+      itemCount: sql<number>`(SELECT COUNT(*) FROM order_items WHERE order_items.order_id = ${orders.id})`,
+      totalCents: sql<number>`(SELECT COALESCE(SUM(order_items.quantity * order_items.unit_price_cents), 0) FROM order_items WHERE order_items.order_id = ${orders.id} AND order_items.unit_price_cents IS NOT NULL)`,
     })
     .from(orders)
     .leftJoin(vendors, eq(orders.vendorId, vendors.id))
@@ -33,9 +35,11 @@ export default defineEventHandler(async (event) => {
     .orderBy(desc(orders.createdAt))
     .all()
 
-  return rows.map(({ order, vendor, creator }) => ({
+  return rows.map(({ order, vendorName, creatorName, itemCount, totalCents }) => ({
     ...order,
-    vendorName: vendor?.name ?? null,
-    creatorName: creator?.displayName ?? null,
+    vendorName: vendorName ?? null,
+    creatorName: creatorName ?? null,
+    itemCount,
+    totalCents,
   }))
 })

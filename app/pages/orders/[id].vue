@@ -57,16 +57,16 @@ function formatDate(d: string | null) {
 <template>
   <div class="max-w-2xl">
     <div class="flex items-center gap-4 mb-6">
-      <NuxtLink to="/" class="text-sm text-gray-500 hover:text-gray-900">← Back</NuxtLink>
-      <h1 class="text-2xl font-semibold text-gray-900">Order #{{ id }}</h1>
+      <NuxtLink to="/" class="text-sm text-gray-500 hover:text-gray-900 eva:text-eva-muted eva:hover:text-white">← Back</NuxtLink>
+      <h1 class="text-2xl font-semibold text-gray-900 eva:text-white">{{ order?.title ?? `Order #${id}` }}</h1>
       <StatusBadge v-if="order" :status="order.status" :expected-date="order.expectedDate" />
     </div>
 
-    <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6">
+    <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6 eva:bg-eva-surface eva:border-eva-border">
       <OrderForm v-if="order" :initial="order" :loading="loading" :error="error" @submit="handleSubmit">
         <template #actions>
           <button type="button" @click="handleDelete"
-            class="text-red-600 hover:text-red-800 text-sm font-medium px-4 py-2">
+            class="text-red-600 hover:text-red-800 eva:text-red-400 eva:hover:text-red-300 text-sm font-medium px-4 py-2">
             Delete
           </button>
         </template>
@@ -74,23 +74,24 @@ function formatDate(d: string | null) {
     </div>
 
     <!-- Attachment -->
-    <div class="bg-white rounded-lg border border-gray-200 p-6">
-      <h2 class="text-sm font-semibold text-gray-700 mb-3">Attachment</h2>
+    <div class="bg-white rounded-lg border border-gray-200 p-6 eva:bg-eva-surface eva:border-eva-border">
+      <h2 class="text-sm font-semibold text-gray-700 eva:text-eva-muted mb-3">Attachment</h2>
       <div v-if="order?.attachmentPath" class="mb-3">
         <a :href="`/api/orders/${id}/attachment`"
-          class="text-blue-600 hover:underline text-sm">
+          class="text-blue-600 hover:underline eva:text-eva-lime text-sm">
           Download {{ order.attachmentPath }}
         </a>
       </div>
-      <div v-else class="text-sm text-gray-400 mb-3">No attachment</div>
+      <div v-else class="text-sm text-gray-400 eva:text-eva-muted mb-3">No attachment</div>
       <div class="flex items-center gap-3">
-        <input ref="fileInput" type="file" class="text-sm" />
+        <input ref="fileInput" type="file" class="text-sm text-gray-600 eva:text-eva-muted" />
         <button @click="uploadFile" :disabled="uploadLoading"
-          class="bg-gray-100 hover:bg-gray-200 text-gray-700 rounded px-3 py-1.5 text-sm disabled:opacity-50">
+          class="bg-gray-100 hover:bg-gray-200 text-gray-700 rounded px-3 py-1.5 text-sm disabled:opacity-50
+                 eva:bg-eva-raised eva:hover:bg-eva-border eva:text-eva-muted">
           {{ uploadLoading ? 'Uploading…' : 'Upload' }}
         </button>
       </div>
-      <p v-if="uploadError" class="text-sm text-red-600 mt-2">{{ uploadError }}</p>
+      <p v-if="uploadError" class="text-sm text-red-600 eva:text-red-400 mt-2">{{ uploadError }}</p>
     </div>
   </div>
 </template>
