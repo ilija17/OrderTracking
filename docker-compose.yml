@@ -4,7 +4,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./persist/data:/app/data
+      - /opt/tracking/persist/data:/app/data
     environment:
       - NUXT_SESSION_PASSWORD=change-this-to-a-random-32-char-secret
     restart: unless-stopped
