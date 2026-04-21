@@ -38,8 +38,8 @@ async function handleDelete(id: number) {
           <tr v-for="v in vendors" :key="v.id" class="hover:bg-gray-50 eva:hover:bg-eva-raised">
             <td class="px-4 py-3 w-12">
               <img v-if="v.imagePath" :src="`/api/vendors/${v.id}/image`"
-                class="w-8 h-8 rounded-full object-cover border border-gray-200 eva:border-eva-border" alt="" />
-              <div v-else class="w-8 h-8 rounded-full bg-gray-100 eva:bg-eva-raised border border-gray-200 eva:border-eva-border" />
+                class="w-8 h-8 min-w-[2rem] min-h-[2rem] aspect-square rounded-full object-cover border border-gray-200 eva:border-eva-border" alt="" />
+              <div v-else class="w-8 h-8 min-w-[2rem] min-h-[2rem] aspect-square rounded-full bg-gray-100 eva:bg-eva-raised border border-gray-200 eva:border-eva-border" />
             </td>
             <td class="px-4 py-3 font-medium text-gray-900 eva:text-white">
               <NuxtLink :to="`/vendors/${v.id}`" class="hover:text-blue-600 eva:hover:text-eva-lime">{{ v.name }}</NuxtLink>
