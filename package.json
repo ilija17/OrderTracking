@@ -1,0 +1,27 @@
+{
+  "name": "order-tracker",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "nuxt": "^4.4.2",
+    "vue": "^3.5.32",
+    "vue-router": "^5.0.4",
+    "better-sqlite3": "^11.10.0",
+    "drizzle-orm": "^0.44.0",
+    "nuxt-auth-utils": "^0.5.20",
+    "zod": "^3.24.3",
+    "@nuxtjs/tailwindcss": "^6.13.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "drizzle-kit": "^0.31.0"
+  }
+}

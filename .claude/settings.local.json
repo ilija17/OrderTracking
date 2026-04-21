@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(wsl -e bash -c \"node --version && npm --version && npx --version 2>&1; echo '---'; pwd; echo '---'; ls /mnt/c/Users/ibosnjak/Desktop/test/\")",
+      "PowerShell(wsl -e bash -c \"cd /mnt/c/Users/ibosnjak/Desktop/test && npx nuxi@latest init . --no-install 2>&1\")",
+      "PowerShell(wsl -e bash -c \"which nvm 2>/dev/null || [ -s ~/.nvm/nvm.sh ] && echo 'nvm exists' || echo 'no nvm'\")",
+      "Bash(npx nuxi@latest *)",
+      "Bash(npm install *)",
+      "Bash(npx drizzle-kit *)",
+      "Bash(npm run *)",
+      "Bash(node .output/server/index.mjs)",
+      "Bash(curl -s http://localhost:3000/api/vendors)",
+      "Bash(kill %1)",
+      "Bash(curl -s -c /tmp/cookies.txt -X POST http://localhost:3000/api/auth/login -H 'Content-Type: application/json' -d '{\"username\":\"admin\",\"password\":\"admin\"}' -v)",
+      "Bash(curl -s -c /tmp/cookies.txt -X POST http://localhost:3000/api/auth/login -H 'Content-Type: application/json' -d '{\"username\":\"admin\",\"password\":\"admin\"}')",
+      "Bash(curl -s -b /tmp/cookies.txt -X POST http://localhost:3000/api/vendors -H 'Content-Type: application/json' -d '{\"name\":\"Dell Technologies\",\"contactPerson\":\"John Smith\",\"email\":\"john@dell.com\"}')",
+      "Bash(curl -s -b /tmp/cookies.txt -X POST http://localhost:3000/api/orders -H 'Content-Type: application/json' -d '{\"item\":\"Dell XPS 15\",\"vendorId\":1,\"quantity\":2,\"orderDate\":\"2026-04-01\",\"expectedDate\":\"2026-04-19\",\"status\":\"ordered\"}')",
+      "Bash(curl -s -b /tmp/cookies.txt http://localhost:3000/api/orders)",
+      "Bash(pkill -f \"index.mjs\")",
+      "Read(//tmp/**)",
+      "Bash(pkill -9 -f \"index.mjs\")",
+      "Bash(pkill -9 -f \"node_modules/.bin/nuxt\")",
+      "Bash(node /mnt/c/Users/ibosnjak/Desktop/test/.output/server/index.mjs)",
+      "Bash(netstat -tlnp)",
+      "Bash(node -e ' *)",
+      "Bash(node *)",
+      "Bash(wait)",
+      "Bash(mkdir -p /mnt/c/Users/ibosnjak/Desktop/test/server/api/orders/\\\\[id\\\\])",
+      "Bash(rm /mnt/c/Users/ibosnjak/Desktop/test/server/api/orders/\\\\[id\\\\].upload.post.ts)",
+      "Bash(rm /mnt/c/Users/ibosnjak/Desktop/test/server/api/orders/\\\\[id\\\\].attachment.get.ts)",
+      "Bash(pkill -9 -f \"nuxt\")",
+      "Bash(pkill -9 -f \"node.*index.mjs\")",
+      "Bash(npm ls *)"
+    ]
+  }
+}
