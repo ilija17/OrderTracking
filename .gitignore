@@ -17,6 +17,10 @@ logs
 .DS_Store
 .fleet
 .idea
+.vscode
+*.swp
+*.swo
+*~
 
 # Local env files
 .env
@@ -28,3 +32,11 @@ data/*.db
 data/*.db-wal
 data/*.db-shm
 data/uploads/
+persist/
+
+# Claude / Copilot
+.claude/
+
+# OS files
+Thumbs.db
+Desktop.ini
