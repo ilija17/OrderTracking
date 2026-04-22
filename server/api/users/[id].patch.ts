@@ -7,7 +7,7 @@ import { hashPassword } from '#imports'
 const schema = z.object({
   displayName: z.string().min(1).optional(),
   role: z.enum(['admin', 'user']).optional(),
-  password: z.string().min(4).optional(),
+  password: z.string().min(8).optional(),
 })
 
 export default defineEventHandler(async (event) => {

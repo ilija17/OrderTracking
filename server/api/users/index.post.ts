@@ -5,7 +5,7 @@ import { hashPassword } from '#imports'
 
 const schema = z.object({
   username: z.string().min(1),
-  password: z.string().min(4),
+  password: z.string().min(8),
   displayName: z.string().min(1),
   role: z.enum(['admin', 'user']).default('user'),
 })
